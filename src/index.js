@@ -3,7 +3,7 @@ import React from 'react';
 class Loading {
   constructor(props) {
     this.loadQueue = []; // core arr
-    this.subscribers = []; // 订阅者们。
+    this.subscribers = []; // subscribers
   }
 
   show = key => {

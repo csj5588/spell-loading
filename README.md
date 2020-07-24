@@ -2,11 +2,13 @@
 
 ## 概述
 
-A partial loading transition solution
+A partial loading transition solution,You can read this [《提升用户体验之局部过渡》](https://juejin.im/post/5e662b58e51d4526c80eaf03) article to use this component
 
 ## Install(安装)
 
-npm install @sj/spell-loading -D
+npm install spell-loading -D
+
+[npm address](https://www.npmjs.com/package/spell-loading)
 
 ## Usage(使用)
 
@@ -24,7 +26,7 @@ apis
 
 ## Contact me(联系我)
 
-1839333350@qq.com
+cuishijie@inke.cn
 
 ## License
 
