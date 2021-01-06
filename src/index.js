@@ -3,25 +3,29 @@ import React from 'react';
 class Loading {
   constructor(props) {
     this.loadQueue = []; // core arr
-    this.subscribers = []; // subscribers
+    this.subscribers = []; // 订阅者们。
   }
 
   show = key => {
     this.loadQueue.push(key);
+
+    this.publish(key, true);
   }
 
   hide = key => {
-    const _loadKeys = [...this.loadQueue];
-    if (_loadKeys.length === 0) return false;
+    setTimeout(() => {
+      const _loadKeys = [...this.loadQueue];
+      if (_loadKeys.length === 0) return false;
 
-    const _next = _loadKeys.filter(x => x !== key);
+      const _next = _loadKeys.filter(x => x !== key);
 
-    this.loadQueue = _next;
+      this.loadQueue = _next;
 
-    this.publish(key);
+      this.publish(key, false);
+    }, 500);
   }
 
-  publish = (_key) => {
+  publish = (_key, isLoading) => {
     const _subscribers = this.subscribers.map(subscriber => {
       const { key, reback, opObj } = subscriber;
 
@@ -30,7 +34,7 @@ class Loading {
       if (!hasKey) return subscriber;
 
       const _opObj = { ...opObj };
-      _opObj[_key] = false;
+      _opObj[_key] = isLoading;
 
       reback(_opObj);
 
@@ -54,6 +58,7 @@ class Loading {
 
       subscribe = () => {
         _this._subscribe(subscribers, (subInfo) => {
+          console.log(subInfo)
           this.setState({ ladingProps: subInfo });
         });
       }
@@ -76,7 +81,7 @@ class Loading {
   _subscribe = (keysArr, reback) => {
     if (!Array.isArray(keysArr)) return {};
 
-    let opObj = {};
+    const opObj = {};
     keysArr.forEach(k => {
       opObj[k] = true;
     })
