@@ -1,6 +1,6 @@
 {
   "name": "spell-loading",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A partial loading transition solution",
   "main": "lib/index.js",
   "files": [
