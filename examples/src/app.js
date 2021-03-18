@@ -2,13 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Card, Icon } from 'antd';
-import Dynamic from './../../src/index'
+import Dynamic from './../../lib/index'
 import utils from './../../src/utils';
 import styles from './index.less';
 
 const cx = utils.classnames('demo', styles);
-
-console.log(Dynamic)
 
 class Demo extends React.Component {
   timeout = (ms) => {
