@@ -14,12 +14,25 @@ const devConfig = {
       {
         test: /\.css$/,
         exclude: /\.min\.css$/,
-        loader: ['style-loader','css-loader?modules'],
+        loader: ['style-loader', 'css-loader?modules'],
       },
       {
         test: /\.min\.css$/,
-        loader: ['style-loader','css-loader'],
+        loader: ['style-loader', 'css-loader'],
       },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true
+            }
+          }
+        ],
+      }
     ]
   },
   devServer: {

@@ -1,0 +1,48 @@
+@prefix: DynamicCard;
+
+.@{prefix}- {
+  &root {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+    .add-button{
+      margin-bottom: 15px;
+    }
+    .card{
+      position: relative;
+      margin-bottom: 15px;
+      transition: border 0.3s;
+      &:hover{
+        border: 1px dashed #ff7272;
+        .cancelBox{
+          i{
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+      }
+      .cancelBox{
+        position: absolute;
+        right: 13px;
+        top: 11px;
+        i{
+          font-size: 20px;
+          color: #ff7272;
+          opacity: 0;
+          transform: scale(0);
+          transform-origin: center center;
+          cursor: pointer;
+          z-index: 3;
+          transition: all 0.3s;
+          &:hover{
+            color: red;
+          }
+        }
+      }
+      .ant-card-body{
+        padding: 10px;
+      }
+    }
+  }
+}
