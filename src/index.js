@@ -1,7 +1,7 @@
 /**
  * DynamicCard Component
  * 
- * @param[Number] defaultInitial // 默认展示卡片数量
+ * @param[Number] defaultNum // 默认展示卡片数量
  * @param[String | Object] className // 卡片样式覆盖
  * @param[ReactNode] cancelIcon // 删除按钮覆盖
  * @param[Sting | Object] addButtonClassName // 新增按钮样式覆盖
@@ -28,6 +28,7 @@ class DynamicCard extends React.Component {
       order: [],
       count: 0,
       defaultInitial: false,
+      addLoading: false,
     };
   }
 
@@ -35,7 +36,7 @@ class DynamicCard extends React.Component {
     if (!state.defaultInitial && props.defaultNum) {
       return {
         ...state,
-        order: Array.from({ length: props.defaultNum }, ((_, i) => i)),
+        order: Array.from({ length: props.defaultNum }, ((_, i) => i + 1)),
         count: props.defaultNum,
         defaultInitial: true,
       }
@@ -43,15 +44,17 @@ class DynamicCard extends React.Component {
     return state;
   }
 
-  handleAdd = async () => { // 来个异步
+  handleAdd = async () => {
     const { count } = this.state;
     const { willAdd } = this.props;
+
     const nextCount = count + 1;
+    this.setState({ addLoading: true });
     
     await willAdd(nextCount);
     const copy = [...this.state.order];
     copy.push(nextCount);
-    this.setState({ order: copy, count: nextCount });
+    this.setState({ order: copy, count: nextCount, addLoading: false });
   }
 
   handleDel = (key) => {
@@ -87,12 +90,12 @@ class DynamicCard extends React.Component {
   }
 
   render() {
-    const { order } = this.state;
+    const { order, addLoading } = this.state;
     const { children, className, addButtonClassName } = this.props;
     return (
       <div className={cx('root')}>
         <Button
-          loading={false}
+          loading={addLoading}
           className={`add-button ${addButtonClassName}`}
           onClick={this.handleAdd}
         >
@@ -119,7 +122,7 @@ class DynamicCard extends React.Component {
 }
 
 DynamicCard.propTypes = {
-  defaultInitial: PropTypes.number,
+  defaultNum: PropTypes.number,
   className: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,
@@ -134,7 +137,7 @@ DynamicCard.propTypes = {
 }
 
 DynamicCard.defaultProps = {
-  defaultInitial: 0,
+  defaultNum: 0,
   className: "",
   cancelIcon: undefined,
   addButtonClassName: "",

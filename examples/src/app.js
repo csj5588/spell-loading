@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import { Card, Icon } from 'antd';
-import Dynamic from './../../src/index.js';
+import Dynamic from './../../lib/index';
 import utils from './../../src/utils';
 import styles from './index.less';
 
@@ -27,14 +27,14 @@ class Demo extends React.Component {
     return (
       <div className={cx('root')}>
         <Dynamic
-          defaultInitial={1}
+          defaultNum={1}
           className="dynamic"
           willCancel={this.willCancel}
           willAdd={this.willAdd}
         >
           {(key) => {
             return (
-              <p className="block">这是第{key + 1}张卡片内容</p>
+              <p className="block">这是第{key}张卡片内容</p>
             )
           }}
         </Dynamic>
